@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <meta http-equiv="Content-Type" content=
+    "text/html; charset=utf-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content=
+    "GkBCyYxb92Yt0QXrbegieUcesNKXl2ZxC540qRUZ">
+    <title>UNISTAY</title>
+    <link href=
+    "https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href=
+    "https://bookmypg.co.in/assets/front/css/bootstrap.min.css">
+    <link rel="stylesheet" href=
+    "https://bookmypg.co.in/assets/front/css/animate.min.css">
+    <link rel="stylesheet" href=
+    "https://bookmypg.co.in/assets/front/css/font-awesome.min.css">
+    <link rel="stylesheet" href=
+    "https://bookmypg.co.in/assets/front/css/owl.carousel.min.css">
+    <link rel="stylesheet" href=
+    "https://bookmypg.co.in/assets/front/css/style.css">
+    <link rel="stylesheet" href=
+    "https://bookmypg.co.in/assets/front/css/responsive.css">
+    <link rel="shortcut icon" href=
+    "https://bookmypg.co.in/assets/front/images/favicon.png">
+    
+    <!-- ManyChat -->
+
+    <script src=
+    "https://bookmypg.co.in/assets/front/js/jquery-3.4.1.min.js"></script>
+    
+    <script src=
+    "https://bookmypg.co.in/assets/global/plugins/jquery-ui/jquery-ui.min.js"
+    type="text/javascript"></script> 
+    <script src=
+    "https://bookmypg.co.in/assets/front/js/owl.carousel.min.js"></script>
+    
+    <script src=
+    "https://bookmypg.co.in/assets/front/js/bootstrap.min.js"></script>
+    
+    <script src=
+    "https://bookmypg.co.in/assets/front/js/wow.min.js"></script> 
+    <script src=
+    "https://bookmypg.co.in/assets/front/js/script.js"></script> 
+    <!-- <script src="https://bookmypg.co.in/assets/global/plugins/jquery.min.js" type="text/javascript"></script>-->
+    <script src=
+    "https://bookmypg.co.in/assets/global/plugins/jquery-migrate.min.js"
+    type="text/javascript"></script> 
+    <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src=
+    "https://bookmypg.co.in/js/common/validations/jquery.validate.js"
+    type="text/javascript"></script> 
+    <!--<script src="https://bookmypg.co.in/../node_modules/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>-->
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    type="text/javascript"></script> 
+    <script>
+  
+    jQuery(document).ready(function() {       
+  
+          $(".modal").on("hidden.bs.modal", function() { 
+          $(this).find("input,textarea,select").val('').end();
+          $( "#login_form" ).validate().resetForm();
+          $( "#register_form" ).validate().resetForm();
+          });
+          
+          $( "#login_form" ).validate().resetForm();
+          $( "#register_form" ).validate().resetForm();
+          
+    });
+  
+  
+    $('#login_form').validate({
+          ignore: "",
+          rules:{
+                  'email': {
+                          noHTML: true,
+                  },
+                  'password': {
+                          noHTML: true,
+                  },
+          },
+          messages: {
+                  'email':        { 
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                  },
+                  'password':     { 
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                  }
+          },
+          submitHandler: function (form) {
+                  form.submit(); 
+                  $('#login').prop('disabled', true);
+                  return true;
+          }
+    });
+  
+  
+    $('#register_form').validate({
+          ignore: "",
+          rules:{
+                  'name': {
+                          noHTML: true,
+                  },
+                  'email': {
+                          noHTML: true,
+                          remote: { 
+                                  url: "https://bookmypg.co.in/useremailalreadyexist",
+                                  type: "post",
+                                  data:{"_token": "GkBCyYxb92Yt0QXrbegieUcesNKXl2ZxC540qRUZ"},
+                                  },
+                  },
+                  'mobile': {
+                          noHTML: true,
+                          number: true,
+                          remote: { 
+                                  url: "https://bookmypg.co.in/usermobilealreadyexist",
+                                  type: "post",
+                                  data:{"_token": "GkBCyYxb92Yt0QXrbegieUcesNKXl2ZxC540qRUZ"},
+                                  },
+                  },
+                  'password': {
+                          noHTML: true,
+                          minlength: 8,
+                  },
+                  'repeatpassword': {
+                          noHTML: true,
+                          minlength: 8,
+              equalTo: "#password"
+          }
+                  
+          },
+          messages: {
+                  'name': { 
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                  },
+                  'email':        { 
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                          remote:jQuery.validator.format('Email already exists'),
+                  },
+                  'mobile':       { 
+                          number:jQuery.validator.format('Not allowed'),
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                          remote:jQuery.validator.format('Mobile already exists'),
+                  },
+                  'password':     { 
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                          minlength: jQuery.validator.format("Please enter min 8 charcters")
+                  },
+                  'repeatpassword':       { 
+                          equalTo:jQuery.validator.format('Enter Repeat Password Same as Password!'),
+                          minlength: jQuery.validator.format("Please enter min 8 charcters"),
+                          noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                  }
+          },
+          submitHandler: function (form) {
+                  form.submit(); 
+                  $('#login').prop('disabled', true);
+                  return true;
+          }
+    });
+  
+  
+    $.validator.addMethod(
+          "noHTML",
+          function(value, element) {
+          if(/<(.|\n)*?>/g.test( value )){
+          return false;
+          }else{
+          return true;
+          }
+          },
+          "No HTML tags are allowed!"
+    );
+  
+  
+    function ValidatenumberOnly(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+          return false;
+      }
+      return true;
+    }
+  
+  
+    $("#forgot_password_button").click(function(){
+      $('#login_signup_popup').modal('hide')
+    });
+  
+    $('#forgot_password_form').validate({
+              ignore: "",
+              rules:{
+                  'email': {
+                      emailaccept:true,
+                      noHTML: true,
+                      remote: { 
+                      url: "https://bookmypg.co.in/front_forgotpassword",
+                      type: "post",
+                      data:{"_token": "GkBCyYxb92Yt0QXrbegieUcesNKXl2ZxC540qRUZ"},
+                      },
+                  },
+              },
+                  
+              messages: {
+                                  
+                                  'email': { 
+                  noHTML:jQuery.validator.format('No HTML tags are allowed!'),
+                  remote:jQuery.validator.format('Email not exists'),
+                  emailaccept:jQuery.validator.format('Invalid email'),
+                  },
+                  
+              },
+                  
+              submitHandler: function (form) {
+                  form.submit();
+                                  $('#disabledadd').prop('disabled', true);
+                  return true;
+                          
+              }
+          });
+                  
+                   $.validator.addMethod("emailaccept", function(value, element, param) {
+              var regexp=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+              var re = new RegExp(regexp);
+              if(!re.test(value))
+                  return false;
+              else 
+                  return true;
+          });
+                  
+          $.validator.addMethod(
+              "noHTML",
+                  function(value, element) {
+                  if(/<(.|\n)*?>/g.test( value )){
+                      return false;
+                  }else{
+                      return true;
+                  }
+              },
+              "No HTML tags are allowed!"
+          );
+  
+    </script> 
+    <!-- <script language="JavaScript">
+  
+    /**
+      * Disable right-click of mouse, F12 key, and save key combinations on page
+      * For full source code, visit http://www.mycyberuniverse.com
+      */
+    window.onload = function() {
+      document.addEventListener("contextmenu", function(e){
+        e.preventDefault();
+      }, false);
+      document.addEventListener("keydown", function(e) {
+      //document.onkeydown = function(e) {
+        // "I" key
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+          disabledEvent(e);
+        }
+        // "J" key
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+          disabledEvent(e);
+        }
+        // "S" key + macOS
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+          disabledEvent(e);
+        }
+        // "U" key
+        if (e.ctrlKey && e.keyCode == 85) {
+          disabledEvent(e);
+        }
+        // "F12" key
+        if (e.keyCode == 123) {
+          disabledEvent(e);
+        }
+      }, false);
+      function disabledEvent(e){
+        if (e.stopPropagation){
+          e.stopPropagation();
+        } else if (window.e){
+          window.e.cancelBubble = true;
+        }
+        e.preventDefault();
+        return false;
+      }
+    };
+    </script>  -->
+    <script type="text/javascript" src=
+    "https://maps.google.com/maps/api/js?key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ&libraries=places"></script>
+    
+    <script>
+  
+      jQuery(document).ready(function() {
+  
+          /// POPOULAR PG : START ///
+          $("#loader-holder").show();
+  
+          var apiGeolocationSuccess = function(position) {
+              // alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+  
+              var city = '';
+              $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&sensor=true&key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ', function(data) {
+  
+                  var cityfind = data.results[0].address_components;
+  
+  
+  
+                  for (var i = 0; i < cityfind.length; i++) {
+  
+                      if (cityfind[i].types[0] == 'locality') {
+  
+                          var city = cityfind[i]['long_name'];
+  
+                      }
+                  }
+  
+                  $("#city_name").html(city);
+                  get_popular_pgs(city);
+              });
+  
+          };
+  
+          function get_popular_pgs(city) {
+  
+              let token = getToken();
+  
+              var base_url = $("#base_url").val();
+              var folder_path = '/getpopularpgs';
+              var url = base_url + folder_path;
+  
+  
+  
+              $.ajax({
+                  type: "POST"
+                  , url: url
+                  , data: {
+                      "_token": token
+                      , city: city
+                  , }
+                  , dataType: "json",
+  
+                  success: function(result) {
+                      $("#loader-holder").show();
+                      if (result != '') {
+                          var html = "";
+                          $.each(result, function(index, elm) {
+  
+                              var url = 'https://bookmypg.co.in/pg/:id';
+                              url = url.replace(':id', elm.pg_id_encrypt);
+  
+  
+                              html += "<a href=" + url + " class='PopularCard cardShadow'>";
+                              html += " <div class='image' style='height:144px;width:253px; background-image: url(" + base_url + "/storage/property/thumb/" + elm.property_image + ");'><\/div>";
+                              html += "<div class='wrapper'>";
+  
+                              html += "<h4>" + elm.pg_name + "<\/h4>";
+  
+                              /* html+="<div class='property-name-gender-div'>";
+                              if(elm.pg_gender_id == 1) {
+                              html+="<img src='https://bookmypg.co.in/assets/front/images//male-c.svg' alt='male'>";
+                              } else {
+                              html+="<img src='https://bookmypg.co.in/assets/front/images//female-c.svg' alt='female'>";
+                              }
+                              html+="<\/div>"; */
+  
+                              html += "<p>Starting price <span class='rupee'>₹" + elm.monthly_rent + "<\/span><\/p>"
+                              html += "<div class='textLink'>View More<\/div>";
+                              html += "<\/div>";
+                              html += "<\/a>";
+  
+  
+  
+  
+                          });
+  
+  
+  
+                          $("#popular-pg").html(html);
+  
+                          $('#popular-pg').owlCarousel({
+                              loop: result.length > 3
+                              , margin: 30
+                              , autoplay: true
+                              , autoplayTimeout: 3000
+                              , autoplaySpeed: 1000
+                              , autoplayHoverPause: true
+                              , responsiveClass: true
+                              , nav: false
+                              , items: 1
+                              , dots: false
+                              , responsive: {
+                                  0: {
+                                      items: 1
+                                  , }
+                                  , 500: {
+                                      items: 2
+                                  , }
+                                  , 800: {
+                                      items: 3
+                                  , }
+                                  , 1200: {
+                                      items: 4
+                                  , }
+                              }
+                          });
+  
+                          $("#loader-holder").hide();
+  
+  
+  
+                      }
+                  }
+  
+  
+              });
+          }
+  
+          var tryAPIGeolocation = function() {
+              jQuery.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ", function(success) {
+                      console.log(success);
+                      apiGeolocationSuccess({
+                          coords: {
+                              latitude: success.location.lat
+                              , longitude: success.location.lng
+                          }
+                      });
+                  })
+                  .fail(function(err) {
+                      // alert("API Geolocation error! \n\n"+err);
+                  });
+          };
+  
+          var browserGeolocationSuccess = function(position) {
+  
+              var city = '';
+              $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&sensor=true&key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ', function(data) {
+  
+                  var cityfind = data.results[0].address_components;
+  
+  
+  
+                  for (var i = 0; i < cityfind.length; i++) {
+  
+                      if (cityfind[i].types[0] == 'locality') {
+  
+                          var city = cityfind[i]['long_name'];
+  
+                      }
+                  }
+                  $("#city_name").html(city);
+                  get_popular_pgs(city);
+  
+              });
+  
+          };
+  
+          var browserGeolocationFail = function(error) {
+              switch (error.code) {
+                  case error.TIMEOUT:
+                      alert("Browser geolocation error !\n\nTimeout.");
+                      break;
+                  case error.PERMISSION_DENIED:
+                      if (error.message.indexOf("Only secure origins are allowed") == 0) {
+                          tryAPIGeolocation();
+                      }
+                      break;
+                  case error.POSITION_UNAVAILABLE:
+                      alert("Browser geolocation error !\n\nPosition unavailable.");
+                      break;
+              }
+          };
+  
+          var tryGeolocation = function() {
+              $("#loader-holder").show();
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                      browserGeolocationSuccess
+                      , browserGeolocationFail, {
+                          maximumAge: 50000
+                          , timeout: 20000
+                          , enableHighAccuracy: true
+                      });
+              }
+  
+          };
+  
+          tryGeolocation();
+  
+  
+          function getToken() {
+              let metas = document.getElementsByTagName("meta");
+              for (let i = 0; i < metas.length; i++) {
+                  let meta = metas[i];
+                  if (meta.name === "csrf-token") {
+                      return meta.content;
+                  }
+              }
+          }
+  
+          /// POPOULAR PG : START ///
+  
+      });
+  
+  
+  
+      /// Near Me functionality : START ///
+  
+      $("#nearme").click(function() {
+  
+  
+          var apiGeolocationSuccess = function(position) {
+              // alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+  
+              var city = '';
+              $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&sensor=true&key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ', function(data) {
+  
+                  var cityfind = data.results[0].address_components;
+  
+  
+  
+                  for (var i = 0; i < cityfind.length; i++) {
+  
+                      if (cityfind[i].types[0] == 'locality') {
+  
+                          var city = cityfind[i]['long_name'];
+  
+                      }
+                  }
+  
+                  var base_url = $("#base_url").val();
+                  var folder_path = '/search/nearme/' + city + '/' + position.coords.latitude + '/' + position.coords.longitude;
+                  var url = base_url + folder_path;
+  
+                  window.location.href = url;
+  
+              });
+  
+          };
+  
+          var tryAPIGeolocation = function() {
+              jQuery.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ", function(success) {
+                      console.log(success);
+                      apiGeolocationSuccess({
+                          coords: {
+                              latitude: success.location.lat
+                              , longitude: success.location.lng
+                          }
+                      });
+                  })
+                  .fail(function(err) {
+                      // alert("API Geolocation error! \n\n"+err);
+                  });
+          };
+  
+          var browserGeolocationSuccess = function(position) {
+  
+              var city = '';
+              $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&sensor=true&key=AIzaSyCu4gJ6U-kk3H6w_rN7r9wZFJytZdp23SQ', function(data) {
+  
+                  var cityfind = data.results[0].address_components;
+  
+  
+  
+                  for (var i = 0; i < cityfind.length; i++) {
+  
+                      if (cityfind[i].types[0] == 'locality') {
+  
+                          var city = cityfind[i]['long_name'];
+  
+                      }
+                  }
+  
+                  var base_url = $("#base_url").val();
+                  var folder_path = '/search/nearme/' + city + '/' + position.coords.latitude + '/' + position.coords.longitude;
+                  var url = base_url + folder_path;
+  
+                  window.location.href = url;
+  
+              });
+  
+          };
+  
+          var browserGeolocationFail = function(error) {
+              switch (error.code) {
+                  case error.TIMEOUT:
+                      alert("Browser geolocation error !\n\nTimeout.");
+                      break;
+                  case error.PERMISSION_DENIED:
+                      if (error.message.indexOf("Only secure origins are allowed") == 0) {
+                          tryAPIGeolocation();
+                      }
+                      break;
+                  case error.POSITION_UNAVAILABLE:
+                      alert("Browser geolocation error !\n\nPosition unavailable.");
+                      break;
+              }
+          };
+  
+          var tryGeolocation = function() {
+              $("#loader-holder").show();
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                      browserGeolocationSuccess
+                      , browserGeolocationFail, {
+                          maximumAge: 50000
+                          , timeout: 20000
+                          , enableHighAccuracy: true
+                      });
+              }
+  
+          };
+  
+          tryGeolocation();
+  
+  
+          // $.getJSON('https://geoip-db.com/json/', function(data) {
+  
+          // alert(data['latitude']);
+  
+          // var latitude = data['latitude'];
+          // var longitude = data['longitude'];
+          // var city = data['city'];
+  
+          // var base_url = $("#base_url").val();
+          // var folder_path = '/search/nearme/'+city+'/'+latitude+'/'+longitude;
+          // var url = base_url+folder_path;
+  
+          // window.location.href=url;
+  
+          // });
+  
+      });
+  
+      /// Near Me functionality : END ///
+  
+      // getLocation();
+  
+  
+  
+      /* function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+  
+  
+      function showPosition(position) {
+        alert("Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude);
+      }
+       */
+  
+      // Auto complete address bar
+      function initialize() {
+          var input = document.getElementById('address');
+          var options = {
+              // types: ['(cities)'],
+              componentRestrictions: {
+                  country: 'in'
+              }
+          };
+          new google.maps.places.Autocomplete(input, options);
+  
+      }
+  
+      google.maps.event.addDomListener(window, 'load', initialize);
+  
+  
+      $("#search").click(function() {
+          var geocoder = new google.maps.Geocoder();
+          var address = $("#address").val();
+  
+          geocoder.geocode({
+              'address': address
+          }, function(results, status) {
+  
+              if (status == google.maps.GeocoderStatus.OK) {
+                  // console.log(results);
+                  var latitude = results[0].geometry.location.lat();
+                  var longitude = results[0].geometry.location.lng();
+  
+                  var cityfind = results[0].address_components;
+  
+  
+                  var city = '';
+                  for (var i = 0; i < cityfind.length; i++) {
+  
+                      if (cityfind[i].types[0] == 'locality') {
+                          //console.log(cityfind[i]['long_name']);
+                          var city = cityfind[i]['long_name'];
+  
+                      }
+                  }
+  
+                  var base_url = $("#base_url").val();
+                  var folder_path = '/search/searchbox/' + city + '/' + latitude + '/' + longitude;
+                  var url = base_url + folder_path;
+  
+  
+                  window.location.href = url;
+  
+              }
+          });
+      });
+  
+    </script> 
+  
+    <script src="//widget.manychat.com/641037263071832.js" async=
+    "async"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+  
+    <script async src=
+    "https://www.googletagmanager.com/gtag/js?id=UA-1449645-13"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-1449645-13');
+    </script>
+    <script>
+    window.Laravel = {"csrfToken":"GkBCyYxb92Yt0QXrbegieUcesNKXl2ZxC540qRUZ"}
+    </script>
+
+    
+    <style>
+      /* .owl-carousel .owl-item img {
+      display: block !important;
+      width: 10%  !important;
+    } */
+  
+    </style>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+
+
+
+    
+
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
